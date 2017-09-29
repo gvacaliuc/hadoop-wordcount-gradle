@@ -1,0 +1,21 @@
+plugins {
+  id 'com.github.johnrengelman.shadow' version '2.0.1'
+  id 'java'
+  id 'application'
+}
+
+mainClassName = "edu.comp330.lab1.WordCount"
+
+repositories {
+    mavenCentral();
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': "$mainClassName"
+    }
+}
+
+dependencies {
+    compile group: 'org.apache.hadoop', name: 'hadoop-client', version: '2.7.3'
+}

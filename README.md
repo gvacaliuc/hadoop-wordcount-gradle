@@ -18,15 +18,34 @@ import the project as a gradle project when importing this git repo.
 
 Navigate to your local clone of this git repository, and run:
 ```bash
-/path/to/repo$ ./gradlew build shadowJar
+/path/to/repo$ ./gradlew build jar
 ```
 
 ### Windows
 
 Navigate to your local clone of this git repository, and run:
 ```
-/path/to/repo$ gradlew.bat build shadowJar
+/path/to/repo$ gradlew.bat build jar
 ```
 
-Note that this performs the `build` task, followed by the `shadowJar` command,
-it doesn't simply tell gradle to build the "Shadow JAR".
+Note that this performs the `build` task, followed by the `jar` command,
+it doesn't simply tell gradle to build the JAR.
+
+### Running WordCount
+
+If you have a terminal open on a machine with a hadoop installation, e.g. AWS
+EMR, Google DataProc, local installation, etc... and you already have the 
+JAR available as `superCoolJarName.jar`, as well as have the [included 
+script](./get-data.sh) locally just execute:
+```bash
+$ ./get-data.sh #wait for data to download
+$ hadoop fs -mkdir -p words #dataproc doesn't automatically create /home/user/ in HDFS
+$ hadoop fs -put *.txt words
+$ hadoop jar superCoolJarName.jar words wordsOutput
+```
+
+to get the data and run the jar.  You can get some local results by doing:
+```bash
+$ hadoop fs -get wordsOutput
+$ head -n20 wordsOutput/part-r-00000
+```
